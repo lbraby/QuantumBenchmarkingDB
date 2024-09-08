@@ -1,0 +1,87 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">
+    <style>
+        .top_message {
+            text-decoration: underline;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        .exception {
+            color: goldenrod;
+        }
+        .module {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .upload_form {
+            margin-left: 10px;
+        }
+    </style>
+    {% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}
+    <nav aria-label="{% translate 'Breadcrumbs' %}">
+        {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+            &rsaquo; Data Upload
+            </div>
+        {% endblock %}
+    </nav>
+{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module" id="csv-data-upload">
+        <h2>{% translate 'Data Upload' %}</h2>
+        <h3>{% translate 'Upload Performance Reports' %}</h3>
+        <form method="post" enctype="multipart/form-data" class="upload_form">
+            {{ performance_report_form }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Upload</button>
+            <div>
+                <span class="top_message {% if performance_report_upload_summary.status == 'success' %}success{% elif performance_report_upload_summary.status == 'error' %}error{% endif %}">{{ performance_report_upload_summary.top_message }}</span>
+                <br><span>{{ performance_report_upload_summary.schema }}</span>
+                <ul>
+                    {% for message in performance_report_upload_summary.messages %}
+                        <li class="{% if message.message_type == 'success' %}success{% elif message.message_type == 'error' %}error{% elif message.message_type == 'exception' %}exception{% endif %}">{{ message.text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
+
+        <h3>{% translate 'Upload Problems' %}</h3>
+        <form method="post" enctype="multipart/form-data" class="upload_form">
+            {{ problem_form }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Upload</button>
+            <div>
+                <span class="top_message {% if problem_upload_summary.status == 'success' %}success{% elif problem_upload_summary.status == 'error' %}error{% endif %}">{{ problem_upload_summary.top_message }}</span>
+                <br><span>{{ problem_upload_summary.schema }}</span>
+                <ul>
+                    {% for message in problem_upload_summary.messages %}
+                        <li class="{% if message.message_type == 'success' %}success{% elif message.message_type == 'error' %}error{% elif message.message_type == 'exception' %}exception{% endif %}">{{ message.text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

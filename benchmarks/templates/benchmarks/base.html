@@ -1,0 +1,59 @@
+{% load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'benchmarks\css\style.css'%}">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'benchmarks/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'benchmarks/images/favicon.ico' %}" type="image/x-icon">
+    <style>
+        .header-one {
+        background-image:  url("{% static 'benchmarks/images/HeaderBackground.png' %}"); /* Add your image URL here */
+        background-size: cover; /* Increase width to 150% and keep the height auto */
+        background-position: center; /* Center the image */
+        color: white;
+        padding: 0px;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <header class="header-one">
+        <ul class="header-one-sublist">
+            <li class="header-one-sublist-item"><a href="https://www.purdue.edu/cqt/"><img src="{% static 'benchmarks/images/cqtlogo.png' %}" alt="AppLogo"></a></li>
+            <li class="header-one-sublist-item"><a href="https://www.nd.edu/"><img src="{% static 'benchmarks/images/notredamelogo.png' %}" alt="AppLogo"></a></li>
+            <li class="header-one-sublist-item"><a href="https://www.nsf.gov/"><img src="{% static 'benchmarks/images/nsflogo.png' %}" alt="AppLogo"></a></li>     
+        </ul>
+    </header>
+    <header class="dbheader">
+        <ul class="tabs">
+            <li class="tabsitem"><a href="/admin">Admin Site</a></li>
+            <li class="tabsitem"><a href="/">Home</a></li>
+            <li class="tabsitem"><a>All Data</a>
+                <ul class="sublist">
+                    <li class="sublist-item"><a href="/benchmarks/report">Performance</a></li>
+                    <li class="sublist-item"><a href="/benchmarks/instance">Problems</a></li>
+                    <li class="sublist-item"><a href="/benchmarks/system">System</a></li>
+                    <li class="sublist-item"><a href="/benchmarks/processor">Processor</a></li>
+                    <li class="sublist-item"><a href="/benchmarks/gate">Gate</a></li>
+                </ul>
+            </li>
+            <li class="tabsitem"><a href="/benchmarks/algorithm-and-application">Algorithm and Application</a></li>
+            <li class="tabsitem"><a href="/benchmarks/ManyTable">Query Interface</a></li>
+            <li class="tabsitem"><a href="/benchmarks/reference">Reference</a></li>
+            <li class="tabsitem"><a href="/benchmarks/people">People</a></li>
+            <li class="tabsitem"><a href="https://forms.gle/WRE5rmA2HXYE9gd79">Contact Us</a></li>
+        </ul>
+    </header>
+    {% block content %}{% endblock %}
+    <footer class="dbfooter">
+            <img src="{% static 'benchmarks\images\ndlogo2.png' %}" alt="FooterAppLogo">
+            <ul class="footeraddress">
+                <li class="footeraddressitem"><a>Notre Dame, IN 46556 USA</a></li>
+                <li class="footeraddressitem"><a>Phone: (574) 631-5000</a></li>
+                <li class="footeraddressitem"><a>Made by: Peter Kogge, Ulrik de Muelenaere, Luke Braby, Triet Do</a></li>
+            </ul>
+    </footer>
+    
+</body>
+</html>
